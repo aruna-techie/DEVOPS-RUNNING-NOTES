@@ -75,6 +75,47 @@ Click on build now.
 After a successful Maven build, the WAR should be available under the target directory, for example target/application.war.
 
 =======================================================================
+Triggers:
+
+POLLSCM: It will set a time limit if the source code change on that time it will build.
+
+for this we have to use cron job syntax:
+CRONJOB: To schedule the works
+*	: Minutes
+*	: Hours
+*	: Date
+*	: Month
+*	: day (0=sun)
+
+9:00 am 23 : 0 9 23 6 5
+10:30 pm 22: 30 22 22 6 4
+
+WEBHOOKS: If the developer changes the code then it will build at that point of time.
+
+THROTTLE BUILD: To restric the number of builds for time(M,H,D,W,M)
+
+=============================================================
+INTEGRATION Tomcat(Application server) WITH JENKINS:
+
+create a new instance with SG:8080 allowed
+install java and tomcat
+
+On the Jenkins server:
+1. Go to Manage Jenkins → Plugins → Available plugins.
+2. Search for Deploy to Container.
+3. Install the Deploy to Container Plugin.
+
+Go to Jenkins Job → Configure → Post-build Actions → Add post-build action → Deploy war/ear to a container.
+
+WAR/EAR files->	target/*.war
+Container	->Tomcat 9.x Remote (choose the matching Tomcat version)
+Credentials->	tomcat-credentials(tomcat,admin@123, we have mentioned in the commands while installing tomcat)
+Tomcat URL	http://<Tomcat-Public-IP>:8080
+
+===================================================================
+
+
+
 
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
@@ -159,23 +200,6 @@ b. JENKINS ENVIRONMENT VARS: it can be defined by user
 ==================================================================
 
 DAY-03: 
-
-CRONJOB: To schedule the works
-
-*	: Minutes
-*	: Hours
-*	: Date
-*	: Month
-*	: day (0=sun)
-
-9:00 am 23 : 0 9 23 6 5
-10:30 pm 22: 30 22 22 6 4
-
-POLLSCM: It will set a time limit if the source code change on that time it will build.
-
-WEBHOOKS: If the developer changes the code then it will build at that point of time.
-
-THROTTLE BUILD: To restric the number of builds for time(M,H,D,W,M)
 
 PASSWORDLESS LOGIN: 
 cd /var/lib/jenkins
