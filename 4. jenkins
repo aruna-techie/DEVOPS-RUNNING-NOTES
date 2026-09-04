@@ -26,9 +26,10 @@ HIGH AVAILABILTY - MORE THAN ONE SERVER. (ONE -1A, TWO - 1B)
 PIPELINE: 
 SERIES OF EVENTS INTERNINKED WITH EACH OTHER.
 STEP BY STEP EXECUTION OF A PROCESS.
+====================================================
 
+SETUP :INSTALLING JENKINS
 
-SETUP:
 STEP-1: INSTALLING JAVA 21
 yum install java-21-amazon-corretto
 
@@ -57,9 +58,25 @@ STEP-7:Install Suggested Plugins and Create the First Admin User
 install plugins and create user for login.
 then jenkin Dashboard will opens.
 
+===========================================
 INTEGRATION OF GIT AND MAVEN WITH JENKINS:
+
 NEW Job-- > NAME: MyFirstJOB -- > FREE STYLE -- > OK 
-Source Code Management -- > GIT -- > https://github.com/devopsbyraham/jenkins-java-project.git
+Open the job → Configure ->
+Source Code Management -- > GIT -- > Repository URL: https://github.com/<username>/<repository>.git->Branches to build:*/main
+Jenkins needs access to Maven to build the Java application.
+Go to: Manage Jenkins → Tools → Maven installations → Add Maven
+Open the Jenkins job → Configure → Build Steps → Add build step → Invoke top-level Maven targets.
+Configure:
+Field	Value
+Maven Version:	Maven-3.9
+Goals	:clean install
+Save.
+
+
+
+If the repository is private, add/select the appropriate GitHub credentials. For a public repository, credentials may not be required.
+
 Build Steps -- > add setp -- > Execute shell -- > save
 
 
