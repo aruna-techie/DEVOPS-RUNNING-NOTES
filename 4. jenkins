@@ -1,5 +1,14 @@
 19-06-2023: intro, setup, ci, custom workspace, shell 
 
+JENKINS:
+its a free and opensource tool.
+its platform independent.
+it is built on java-11.
+koshuke kawaguchui invented jenkins in sun micro systems 2004.
+inital name was hudson -- > paid -- > orcle -- > free 
+it consist lot of plugins.
+JENKINS: PORT - 8080
+
 CI - CONTINOUS INTEGRATION (BUILD + TEST) = OLD CODE WITH NEW CODE
 CD - CONTINOUS DELIVERY		: Deployment to production is manual
 CD - CONTINOUS DEPLOYMET	: Deployment to production is automated
@@ -18,22 +27,25 @@ PIPELINE:
 SERIES OF EVENTS INTERNINKED WITH EACH OTHER.
 STEP BY STEP EXECUTION OF A PROCESS.
 
-JENKINS: PORT - 8080
 
 SETUP:
-STEP-1: GETTING REP0 (jenkins.io -- > downloads -- > Redhat)
+STEP-1: INSTALLING JAVA 21
+yum install java-21-amazon-corretto
+
+STEP-2: INSTALLING GIT 
+yum install git -y
+
+STEP-3: GETTING REP0 (jenkins.io -- > downloads -- > Redhat)
 sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 
-STEP-2: INSTALLING JAVA 11
-amazon-linux-extras install java-openjdk11 -y
+STEP-4:
+yum install jenkins -y
 
-STEP-3: INSTALLING GIT JENKINS MAVEN 
-yum install git maven jenkins -y
-
-STEP-4: STARTING THE SERVICE (any service will be on stopped state when its installed)
+STEP-5: STARTING THE SERVICE (any service will be on stopped state when its installed)
 systemctl start jenkins
 systemctl status jenkins
+systemctl enable jenkins
 
 STEP-5: CONNECTING TO JENKINS
 Public-ip:8080 -- > browser
