@@ -606,24 +606,38 @@ pipeline {
 }
 
 =================================================================================================================
+MASTER AND SLAVE:
 
-MASTER-SLAVE:
-1. it will distribute the builds
-2. it will reduce load on master
-3. it will reduce the memory useage of master
+it is used to distribute the builds.
+it reduce the load on jenkins server.
+communication blw master and slave is ssh.
+Here we need to install agent (java-11).
+slave can use any platform.
+label = way of assingning work for slave.
 
-CREATE A SERVER AND INSTALL JAVA-11
+SETUP:
+#STEP-1 : Create a server and install java-11
 amazon-linux-extras install java-openjdk11 -y
 
-Dashboard  Manage Jenkins Manage Nodes & clouds -- > New node -- > Name -- > Permanent Agent
+#STEP-2: SETUP THE SLAVE SERVER
+Dashboard -- > Manage Jenkins -- > Nodes & Clouds -- > New node -- > nodename: abc -- > permanaent agent -- > save 
 
-Number of executors - no of builds paralelly (3)
-Remote root directory - where your builds will be stored (/tmp)
-Labels - assigning job to slave (swiggy)
-Usage - last options
-Launch method - last option
-host - 172.31.82.90 (privateip)
-Credentials -- > add -- > kind: ssh username with privatekey -- > username: ec2-usrer -- > privatekaey -- > add -- > pem -- > add -- > select ec2-user -- > Host Key Verification Strategy - last option
+CONFIGURATION OF SALVE:
+
+Number of executors : 3 #Number of Parallel builds
+Remote root directory : /home/ec2-user/aruna #The place where our output is stored on slave sever.
+Labels : dev/test/prod/aut #place the op in a particular slave
+useage: last option
+Launch method : last option 
+Host: (your privte ip)
+Credentials -- > add -- >jenkins -- > Kind : ssh username with privatekey -- > username: ec2-user 
+privatekey : pemfile of server -- > save -- > 
+Host Key Verification Strategy: last option
+
+DASHBOARD -- > JOB -- > CONFIGURE -- > RESTRTICT WHERE THIS JOB RUN -- > LABEL: SLAVE1 -- > SAVE
+=======================
+Job Structure:
+
 GENERAL
 │
 ├── Restrict where this project can be run
