@@ -113,6 +113,63 @@ Credentials->	tomcat-credentials(tomcat,admin@123, we have mentioned in the comm
 Tomcat URL	http://<Tomcat-Public-IP>:8080
 
 ===================================================================
+ARTIFACTS:
+Nexus Repository → stores those generated artifacts safely with versions.
+
+create a new instance, add SG with 8081 as a default port of nexsus
+and give the below commands.
+
+NEXUS SETUP COMMANDS : (copy paste these commands one by one)
+
+yum install java-21-amazon-corretto -y
+
+cd /opt
+go to official documentation of nexus:
+https://help.sonatype.com/en/download.html 
+copy the url :for unix/linux link
+wget https://download.sonatype.com/nexus/3/nexus-3.96.0-09-linux-x86_64.tar.gz
+wget https://download.sonatype.com/nexus/3/nexus-3.96.0-09-linux-x86_64.tar.gz
+tar -zxvf nexus-3.96.0-09-linux-x86_64.tar.gz
+useradd nexus
+chown -R nexus:nexus nexus-3.96.0-09 sonatype-work
+su - nexus
+cd /opt/nexus-3.96.0-09/bin/
+./nexus start
+
+once login , there is issue with nexus so again restart the server.
+./nexus restart
+again login with username:admin and password : you created
+
+To access it from browser: http:<public-ip>:8081
+
+In Nexus:
+Nexus → Settings → Repositories → Create repository → maven2 (hosted)
+For example:
+Repository name:my-java-releases
+Choose:
+Version policy: Release
+Deployment policy: Allow redeploy
+Then click Create repository.
+
+HOW TO INTEGRATE NEXUS WITHB JENKINS:
+
+Go to: Manage Jenkins → Plugins → Available plugins->Search:Nexus Artifact Uploader->Install it.
+
+job->configure->build steps-> add -> nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '35.x.x.x:8081',
+                    groupId: 'com.example',
+                    version: '1.0.0',
+                    repository: 'my-java-releases',
+                    credentialsId: 'nexus-credentials'
+                    artifact:
+save and click on build.
+note: these groupid,artifactid,version details mentioned in pom.xml file
+repository should be repository thst you crested in nexus 
+==============================================================================
+
+
 MASTER AND SLAVE:
 
 it is used to distribute the builds.
