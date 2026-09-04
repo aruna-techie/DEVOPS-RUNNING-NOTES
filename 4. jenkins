@@ -179,6 +179,7 @@ Here we need to install agent (java-11).
 slave can use any platform.
 label = way of assingning work for slave.
 
+
 SETUP:
 #STEP-1 : Create a server and install java-11
 amazon-linux-extras install java-openjdk11 -y
@@ -187,6 +188,11 @@ amazon-linux-extras install java-openjdk11 -y
 Dashboard -- > Manage Jenkins -- > Nodes & Clouds -- > New node -- > nodename: abc -- > permanaent agent -- > save 
 
 CONFIGURATION OF SALVE:
+SETTING UP AGENT:
+
+    Dashboard
+    Manage Jenkins
+    Nodes
 
 Number of executors : 3 #Number of Parallel builds
 Remote root directory : /home/ec2-user/aruna #The place where our output is stored on slave sever.
