@@ -64,6 +64,8 @@ INTEGRATION OF GIT AND MAVEN WITH JENKINS:
 NEW Job-- > NAME: MyFirstJOB -- > FREE STYLE -- > OK 
 Open the job → Configure ->
 Source Code Management -- > GIT -- > Repository URL: https://github.com/<username>/<repository>.git->Branches to build:*/main
+If the repository is private, add/select the appropriate GitHub credentials. For a public repository, credentials may not be required.
+
 Jenkins needs access to Maven to build the Java application.
 Go to: Manage Jenkins → Tools → Maven installations → Add Maven
 Open the Jenkins job → Configure → Build Steps → Add build step → Invoke top-level Maven targets.
@@ -73,13 +75,7 @@ Maven Version:	Maven-3.9
 Goals	:clean install
 Save.
 
-
-
-If the repository is private, add/select the appropriate GitHub credentials. For a public repository, credentials may not be required.
-
-Build Steps -- > add setp -- > Execute shell -- > save
-
-
+=======================================================================
 
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
