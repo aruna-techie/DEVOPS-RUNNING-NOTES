@@ -113,7 +113,80 @@ Credentials->	tomcat-credentials(tomcat,admin@123, we have mentioned in the comm
 Tomcat URL	http://<Tomcat-Public-IP>:8080
 
 ===================================================================
+MASTER AND SLAVE:
 
+it is used to distribute the builds.
+it reduce the load on jenkins server.
+communication blw master and slave is ssh.
+Here we need to install agent (java-11).
+slave can use any platform.
+label = way of assingning work for slave.
+
+SETUP:
+#STEP-1 : Create a server and install java-11
+amazon-linux-extras install java-openjdk11 -y
+
+#STEP-2: SETUP THE SLAVE SERVER
+Dashboard -- > Manage Jenkins -- > Nodes & Clouds -- > New node -- > nodename: abc -- > permanaent agent -- > save 
+
+CONFIGURATION OF SALVE:
+
+Number of executors : 3 #Number of Parallel builds
+Remote root directory : /home/ec2-user/aruna #The place where our output is stored on slave sever.
+Labels : dev/test/prod/aut #place the op in a particular slave
+useage: last option
+Launch method : last option 
+Host: (your privte ip)
+Credentials -- > add -- >jenkins -- > Kind : ssh username with privatekey -- > username: ec2-user 
+privatekey : pemfile of server -- > save -- > 
+Host Key Verification Strategy: last option
+
+DASHBOARD -- > JOB -- > CONFIGURE -- > RESTRTICT WHERE THIS JOB RUN -- > LABEL: SLAVE1 -- > SAVE
+=======================
+Job Structure:
+
+GENERAL
+│
+├── Restrict where this project can be run
+│   └── Label: dev
+│
+SOURCE CODE MANAGEMENT
+│
+├── Git
+│   ├── Repository URL
+│   ├── Credentials
+│   └── Branch: */main
+│
+TRIGGERS
+│
+└── GitHub hook trigger / Poll SCM
+│
+BUILD STEPS
+│
+├── Invoke top-level Maven targets
+│   ├── Maven: MyMaven
+│   └── Goals: clean package
+│
+└── Nexus artifact uploader
+    ├── Nexus 3
+    ├── Nexus URL
+    ├── NexusCredentials
+    ├── GroupId
+    ├── ArtifactId
+    ├── Version
+    ├── Type: war
+    └── File: target/myapp.war
+│
+POST-BUILD ACTIONS
+│
+└── Deploy war/ear to a container
+    ├── WAR: target/myapp.war
+    ├── Context path: /myapp
+    ├── Container: Tomcat 9.x Remote
+    ├── Credentials: TomcatCredentials
+    └── Tomcat URL
+
+============================
 
 
 
@@ -667,80 +740,7 @@ pipeline {
 }
 
 =================================================================================================================
-MASTER AND SLAVE:
 
-it is used to distribute the builds.
-it reduce the load on jenkins server.
-communication blw master and slave is ssh.
-Here we need to install agent (java-11).
-slave can use any platform.
-label = way of assingning work for slave.
-
-SETUP:
-#STEP-1 : Create a server and install java-11
-amazon-linux-extras install java-openjdk11 -y
-
-#STEP-2: SETUP THE SLAVE SERVER
-Dashboard -- > Manage Jenkins -- > Nodes & Clouds -- > New node -- > nodename: abc -- > permanaent agent -- > save 
-
-CONFIGURATION OF SALVE:
-
-Number of executors : 3 #Number of Parallel builds
-Remote root directory : /home/ec2-user/aruna #The place where our output is stored on slave sever.
-Labels : dev/test/prod/aut #place the op in a particular slave
-useage: last option
-Launch method : last option 
-Host: (your privte ip)
-Credentials -- > add -- >jenkins -- > Kind : ssh username with privatekey -- > username: ec2-user 
-privatekey : pemfile of server -- > save -- > 
-Host Key Verification Strategy: last option
-
-DASHBOARD -- > JOB -- > CONFIGURE -- > RESTRTICT WHERE THIS JOB RUN -- > LABEL: SLAVE1 -- > SAVE
-=======================
-Job Structure:
-
-GENERAL
-│
-├── Restrict where this project can be run
-│   └── Label: dev
-│
-SOURCE CODE MANAGEMENT
-│
-├── Git
-│   ├── Repository URL
-│   ├── Credentials
-│   └── Branch: */main
-│
-TRIGGERS
-│
-└── GitHub hook trigger / Poll SCM
-│
-BUILD STEPS
-│
-├── Invoke top-level Maven targets
-│   ├── Maven: MyMaven
-│   └── Goals: clean package
-│
-└── Nexus artifact uploader
-    ├── Nexus 3
-    ├── Nexus URL
-    ├── NexusCredentials
-    ├── GroupId
-    ├── ArtifactId
-    ├── Version
-    ├── Type: war
-    └── File: target/myapp.war
-│
-POST-BUILD ACTIONS
-│
-└── Deploy war/ear to a container
-    ├── WAR: target/myapp.war
-    ├── Context path: /myapp
-    ├── Container: Tomcat 9.x Remote
-    ├── Credentials: TomcatCredentials
-    └── Tomcat URL
-
-============================
 27-06-2023:
 
 RBAC	: ROLE BASED ACCESS CONTROL
