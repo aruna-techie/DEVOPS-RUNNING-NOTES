@@ -624,7 +624,46 @@ Usage - last options
 Launch method - last option
 host - 172.31.82.90 (privateip)
 Credentials -- > add -- > kind: ssh username with privatekey -- > username: ec2-usrer -- > privatekaey -- > add -- > pem -- > add -- > select ec2-user -- > Host Key Verification Strategy - last option
-
+GENERAL
+│
+├── Restrict where this project can be run
+│   └── Label: dev
+│
+SOURCE CODE MANAGEMENT
+│
+├── Git
+│   ├── Repository URL
+│   ├── Credentials
+│   └── Branch: */main
+│
+TRIGGERS
+│
+└── GitHub hook trigger / Poll SCM
+│
+BUILD STEPS
+│
+├── Invoke top-level Maven targets
+│   ├── Maven: MyMaven
+│   └── Goals: clean package
+│
+└── Nexus artifact uploader
+    ├── Nexus 3
+    ├── Nexus URL
+    ├── NexusCredentials
+    ├── GroupId
+    ├── ArtifactId
+    ├── Version
+    ├── Type: war
+    └── File: target/myapp.war
+│
+POST-BUILD ACTIONS
+│
+└── Deploy war/ear to a container
+    ├── WAR: target/myapp.war
+    ├── Context path: /myapp
+    ├── Container: Tomcat 9.x Remote
+    ├── Credentials: TomcatCredentials
+    └── Tomcat URL
 
 ============================
 27-06-2023:
