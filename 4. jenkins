@@ -61,19 +61,18 @@ then jenkin Dashboard will opens.
 ===========================================
 INTEGRATION OF GIT AND MAVEN WITH JENKINS:
 
-NEW Job-- > NAME: MyFirstJOB -- > FREE STYLE -- > OK 
-Open the job → Configure ->
-Source Code Management -- > GIT -- > Repository URL: https://github.com/<username>/<repository>.git->Branches to build:*/main
-If the repository is private, add/select the appropriate GitHub credentials. For a public repository, credentials may not be required.
+NEW Job-- > NAME: MyFirstJOB -- > FREE STYLE -- > OK
 
-Jenkins needs access to Maven to build the Java application.
-Go to: Manage Jenkins → Tools → Maven installations → Add Maven
-Open the Jenkins job → Configure → Build Steps → Add build step → Invoke top-level Maven targets.
-Configure:
-Field	Value
-Maven Version:	Maven-3.9
-Goals	:clean install
+Source Code Management → Git
+Repository: https://github.com/<username>/<repository>.git
+Branch: */main
+Build Steps → Invoke top-level Maven targets
+Maven Version: the Maven installation configured under Manage Jenkins → Tools
+Goals:
+clean install
 Save.
+Click on build now.
+After a successful Maven build, the WAR should be available under the target directory, for example target/application.war.
 
 =======================================================================
 
