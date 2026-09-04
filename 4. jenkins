@@ -50,6 +50,19 @@ systemctl enable jenkins
 STEP-5: CONNECTING TO JENKINS
 Public-ip:8080 -- > browser
 
+STEP-6: Unlock jenkins
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+STEP-7:Install Suggested Plugins and Create the First Admin User
+install plugins and create user for login.
+then jenkin Dashboard will opens.
+
+INTEGRATION OF GIT AND MAVEN WITH JENKINS:
+NEW Job-- > NAME: MyFirstJOB -- > FREE STYLE -- > OK 
+Source Code Management -- > GIT -- > https://github.com/devopsbyraham/jenkins-java-project.git
+Build Steps -- > add setp -- > Execute shell -- > save
+
+
 
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
