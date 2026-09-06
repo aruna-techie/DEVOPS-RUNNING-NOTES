@@ -249,9 +249,51 @@ POST-BUILD ACTIONS
     ├── Credentials: TomcatCredentials
     └── Tomcat URL
 
-============================
+============================================
 
+Audit Logs – Jenkins Activity Logs
 
+Audit logs track who performed what action in Jenkins.
+
+For example:
+
+Who logged in?
+Who created a job?
+Who deleted a job?
+Who changed job configuration?
+Who triggered a build?
+Who installed a plugin?
+Who changed credentials?
+
+👉 Audit Logs answer: "Who did what in Jenkins?"
+
+How to Configure Audit Logs in Jenkins
+
+One commonly used plugins are:
+
+Audit Trail,Audit Flow,Audit Log
+
+Jenkins Audit Trail Plugin
+
+Step 1: Install the Plugin
+
+Go to:
+
+Manage Jenkins
+        ↓
+Plugins
+        ↓
+Available Plugins
+        ↓
+Search: Audit Trail,Audit Flow,Audit Log
+
+        ↓
+Install
+
+Where can see these Audit Logs?
+Jenkins Dashboard->manage Jenkins->under Security->AuditFlow Logs->you can see all the logs
+
+=====================================================================
 
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
