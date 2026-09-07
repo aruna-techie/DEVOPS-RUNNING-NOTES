@@ -311,6 +311,174 @@ user-1: EXP (rajesh)           user-2:FRESHER (raju)	USER-3: FRESHER
 5. ASSIGN ROLES: user-1: EXP           user-2:FRESHER
 =================================================================
 
+JENKINS THINBACKUP CONFIGURATION
+
+WHAT IS THINBACKUP?
+
+ThinBackup is a Jenkins plugin used to take backups of Jenkins configuration and jobs.
+
+It can be used for:
+- Manual backups
+- Scheduled backups
+- Full backups
+- Differential backups
+
+STEP 1: INSTALL THE THINBACKUP PLUGIN
+
+1. Open Jenkins Dashboard.
+2. Go to Manage Jenkins.
+3. Click on Plugins.
+4. Go to Available Plugins.
+5. Search for ThinBackup.
+6. Select the ThinBackup plugin.
+7. Click Install.
+8. Restart Jenkins if required.
+
+
+STEP 2: CREATE A BACKUP DIRECTORY
+
+Login to your Jenkins server and run the following commands:
+
+sudo mkdir -p /var/lib/jenkins_backup
+
+sudo chown -R jenkins:jenkins /var/lib/jenkins_backup
+
+sudo chmod -R 755 /var/lib/jenkins_backup
+
+Verify the directory:
+
+ls -ld /var/lib/jenkins_backup
+
+
+STEP 3: CONFIGURE THINBACKUP
+
+Go to:
+
+Jenkins Dashboard
+      ↓
+Manage Jenkins
+      ↓
+System
+
+Scroll down and find the ThinBackup section.
+
+Configure the Backup Directory as:
+
+/var/lib/jenkins_backup
+
+Make sure the Jenkins user has permission to write to this directory.
+
+
+STEP 4: CONFIGURE BACKUP SCHEDULE
+
+You can configure automatic backups using a cron schedule.
+
+Every day at midnight:
+
+0 0 * * *
+
+Every day at 2 AM:
+
+0 2 * * *
+
+Every Sunday at midnight:
+
+0 0 * * 0
+
+Every Monday at 12 PM:
+
+0 12 * * 1
+
+
+STEP 5: CONFIGURE RECOMMENDED SETTINGS
+
+Enable the following option:
+
+Wait until Jenkins is idle to perform a backup
+
+This means Jenkins waits until running jobs are completed before taking the backup.
+
+Set the maximum number of backup sets.
+
+For example:5
+
+This will keep the latest 5 backups.
+
+Older backups can be removed automatically.
+
+STEP 6: SAVE THE CONFIGURATION
+
+After completing all the configuration, click:
+
+Save
+
+Now ThinBackup is configured successfully.
+
+
+STEP 7: TAKE A MANUAL BACKUP
+
+Go to:
+
+Jenkins Dashboard
+      ↓
+Manage Jenkins
+      ↓
+ThinBackup
+
+Click:
+
+Backup Now
+
+Jenkins will immediately create a backup in the configured backup directory.
+
+STEP 8: VERIFY THE BACKUP
+
+Login to the Jenkins server and run:
+
+ls -l /var/lib/jenkins_backup
+
+You should see the backup files or folders.
+
+WHAT DOES THINBACKUP BACK UP?
+
+ThinBackup can back up:
+
+- Jenkins global configuration
+- Jenkins job configuration
+- Job config.xml files
+- Jenkins system configuration
+
+
+IMPORTANT NOTE
+
+ThinBackup does not back up Jenkins workspaces by default.
+
+For complete Jenkins disaster recovery, it is also recommended to back up the complete JENKINS_HOME directory.
+
+
+STEP 9: RESTORE JENKINS USING THINBACKUP
+
+Go to:
+
+Jenkins Dashboard
+      ↓
+Manage Jenkins
+      ↓
+ThinBackup
+
+Click:
+
+Restore
+
+Then follow these steps:
+
+1. Select the required backup.
+2. Start the restore process.
+3. Restart Jenkins.
+
+After restarting Jenkins, the restored configuration will be loaded.
+========================================================================
+
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
 mkdir -p swiggy/jenkinsbuilds/
