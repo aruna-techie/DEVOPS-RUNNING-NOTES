@@ -599,17 +599,88 @@ pipeline {
 2. VARIABLES: which will store the values & changes as per the time.
 
 a. USER DEFINED VARS: 
-1. LOCAL VARS: it will work inside a job
+1. LOCAL VARS: it will be defined inside a specific stage, can be accessed within that specific stage only
 
 name=siva
 loc=hyderabad
 echo "hai all my name is $name, $name is comming from $loc"
+pipeline {
+    agent any
+    environment {
+        name="Aruna"
+    }
 
+    stages {
+        stage('Hello') {
+            environment {
+                age=23
+                
+            }
+            steps {
+                echo "Hello World,$name,$age,$movie"
+                sh "printenv"
+            }
+        }
+        stage('Bye') {
+            steps {
+                echo "Byeeeeeeeeeeeeeeeeeeeeeee,$name"
+                echo "$env.USER"
+                echo "$env.JENKINS_HOME"
+            }
+        }
+    }
+}
 
-2. GLOBAL VARS: it will work outside of a job
-Dashboard -- > Manage Jenkins -- > System -- > Environment vars -- > add 
+2. GLOBAL VARS: defined outside of all stages inside a pipeline , so this variables can be accessed in any stage of that pipeline
+ 
 
-b. JENKINS ENVIRONMENT VARS: it can be defined by user
+b. JENKINS ENVIRONMENT VARS: 
+Dashboard -- > Manage Jenkins -- > System -- > Environment vars -- > add-> like name and value->save
+this can be accessed across all pipelines and how we can access these->env.$variable_name
+list of Environment variables and their values->sh "printenv"
+
+RUN_TESTS_DISPLAY_URL=http://15.252.138.201:8080/job/pipeline2/3/display/redirect?page=tests
+JENKINS_SERVER_COOKIE=durable-a6662606540c18968aea5a0bd148460f09c679a490d63054fe830b32a3eea836
+RUN_CHANGES_DISPLAY_URL=http://15.252.138.201:8080/job/pipeline2/3/display/redirect?page=changes
+HUDSON_HOME=/var/lib/jenkins
+PWD=/var/lib/jenkins/workspace/pipeline2
+LOGNAME=jenkins
+BUILD_URL=http://15.252.138.201:8080/job/pipeline2/3/
+JOB_URL=http://15.252.138.201:8080/job/pipeline2/
+BUILD_NUMBER=3
+SYSTEMD_EXEC_PID=27246
+_=/usr/bin/printenv
+JENKINS_NODE_COOKIE=90f97463-ecd0-4e9b-97e4-5fc5ff517a99
+BUILD_DISPLAY_NAME=#3
+HOME=/var/lib/jenkins
+LANG=C.UTF-8
+JENKINS_URL=http://15.252.138.201:8080/
+JOB_BASE_NAME=pipeline2
+JOB_NAME=pipeline2
+INVOCATION_ID=274b7675c8484df8abbffb6c2beb8e1f
+RUN_DISPLAY_URL=http://15.252.138.201:8080/job/pipeline2/3/display/redirect
+JOB_DISPLAY_URL=http://15.252.138.201:8080/job/pipeline2/display/redirect
+WORKSPACE=/var/lib/jenkins/workspace/pipeline2
+HUDSON_URL=http://15.252.138.201:8080/
+NODE_NAME=built-in
+movie=paradise
+USER=jenkins
+HUDSON_SERVER_COOKIE=edc52f19c724ec52
+NOTIFY_SOCKET=/run/systemd/notify
+SHLVL=2
+BUILD_TAG=jenkins-pipeline2-3
+EXECUTOR_NUMBER=0
+HUDSON_COOKIE=64561fa8-2358-4ac2-810a-23dda4d76fbd
+JENKINS_HOME=/var/lib/jenkins
+NODE_LABELS=built-in
+STAGE_NAME=Hello
+JOURNAL_STREAM=9:33309
+WORKSPACE_TMP=/var/lib/jenkins/workspace/pipeline2@tmp
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+RUN_ARTIFACTS_DISPLAY_URL=http://15.252.138.201:8080/job/pipeline2/3/display/redirect?page=artifacts
+CI=true
+BUILD_ID=3
+
 ========================================================================
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
