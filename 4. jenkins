@@ -481,49 +481,12 @@ After restarting Jenkins, the restored configuration will be loaded.
 
 POST-BUILD ACTIONS: the actions which comes after build.
 
-1- always: it will execute all the time 
-
-success cause:
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                echo "hai all"
-            }
-        }
-    }
-    post {
-        always {
-            echo "hello world"
-        }
-    }
-}
-
-failuer cause:
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                ech "hai all"
-            }
-        }
-    }
-    post {
-        always {
-            echo "hello world"
-        }
-    }
-}
-
-
+1- always: it will execute all the time whether build is success or failure
 2-success: it will trigger if the build is success
+3-failuer:it will execute when build failes
+4-aborted: it will executed when build is aborted in the middle
 
 success cause:
-
 pipeline {
     agent any
     
@@ -541,26 +504,7 @@ pipeline {
     }
 }
 
-failuer cause:
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                ech "hai all"
-            }
-        }
-    }
-    post {
-        always {
-            echo "hello world"
-        }
-    }
-}
-
-
-3-failuer: 
+failue case:
 
 pipeline {
     agent any
@@ -579,6 +523,45 @@ pipeline {
     }
 }
 
+always case:
+
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                echo "hai all"
+            }
+        }
+    }
+    post {
+        always {
+            echo "hello world"
+        }
+    }
+}
+
+aboted case:
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                echo "hai all"
+                sleep 10
+            }
+        }
+    }
+    post {
+        aborted {
+            echo "hello world"
+        }
+    }
+}
+
+executed based on build status:
 pipeline {
     agent any
     
@@ -591,10 +574,14 @@ pipeline {
     }
     post {
         failure {
-            echo "hello world"
+            echo "pipeline failure"
+        }
+        success {
+            echo "pipeline success"
         }
     }
 }
+
 ============================================================================================
 2. VARIABLES: which will store the values & changes as per the time.
 
