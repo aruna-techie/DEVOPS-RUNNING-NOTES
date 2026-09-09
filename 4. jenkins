@@ -669,6 +669,65 @@ CI=true
 BUILD_ID=3
 
 ========================================================================
+Email Integration for Jenkins Job:
+
+1. Configure SMTP globally
+Go to: Manage Jenkins → System → E-mail Notification
+For Gmail:
+SMTP server:	smtp.gmail.com
+Default user e-mail suffix: @gmail.com
+SMTP Port: 465
+Use SMTP Authentication	✅
+User Name:	yourgmail@gmail.com
+Password:	Google App Password
+Use TLS	✅
+Reply-To Address: youremail address
+Save the configuration.
+
+2. Add email notification in your Pipeline
+Use the post section: to configure mail
+
+pipeline {
+    agent any
+    environment {
+        name="Aruna"
+    }
+
+    stages {
+        stage('Hello') {
+            environment {
+                age=23
+                
+            }
+            steps {
+                echo "Hello World,$name,$age,$movie"
+                sh "printenv"
+            }
+        }
+        stage('Bye') {
+            steps {
+                echo "Byeeeeeeeeeeeeeeeeeeeeeee,$name"
+                echo "$env.USER"
+                echo "$env.JENKINS_HOME"
+            }
+        }
+    }
+    post {
+        success {
+            mail to: 'arunagunda1105@gmail.com',
+            subject: "Build Status: ${currentBuild.fullDisplayName}",
+            body: "The build ${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}. View logs at: ${env.BUILD_URL}"
+        }
+        failure {
+            mail to: 'arunagunda1105@gmail.com',
+            subject: "Build Status: ${currentBuild.fullDisplayName}",
+            body: "The build ${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}. View logs at: ${env.BUILD_URL}"
+        }
+
+    }
+}
+
+============================================================================================
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
 mkdir -p swiggy/jenkinsbuilds/
