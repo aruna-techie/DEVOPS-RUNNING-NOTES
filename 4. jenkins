@@ -479,6 +479,124 @@ Then follow these steps:
 After restarting Jenkins, the restored configuration will be loaded.
 ========================================================================
 
+POST-BUILD ACTIONS: the actions which comes after build.
+
+1- always: it will execute all the time 
+
+success cause:
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                echo "hai all"
+            }
+        }
+    }
+    post {
+        always {
+            echo "hello world"
+        }
+    }
+}
+
+failuer cause:
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                ech "hai all"
+            }
+        }
+    }
+    post {
+        always {
+            echo "hello world"
+        }
+    }
+}
+
+
+2-success: it will trigger if the build is success
+
+success cause:
+
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                echo "hai all"
+            }
+        }
+    }
+    post {
+        success {
+            echo "hello world"
+        }
+    }
+}
+
+failuer cause:
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                ech "hai all"
+            }
+        }
+    }
+    post {
+        always {
+            echo "hello world"
+        }
+    }
+}
+
+
+3-failuer: 
+
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                echo "hai all"
+            }
+        }
+    }
+    post {
+        failure {
+            echo "hello world"
+        }
+    }
+}
+
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                ech "hai all"
+            }
+        }
+    }
+    post {
+        failure {
+            echo "hello world"
+        }
+    }
+}
+============================================================================================
+
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
 mkdir -p swiggy/jenkinsbuilds/
