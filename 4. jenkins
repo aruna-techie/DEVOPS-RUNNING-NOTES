@@ -596,7 +596,21 @@ pipeline {
     }
 }
 ============================================================================================
+2. VARIABLES: which will store the values & changes as per the time.
 
+a. USER DEFINED VARS: 
+1. LOCAL VARS: it will work inside a job
+
+name=siva
+loc=hyderabad
+echo "hai all my name is $name, $name is comming from $loc"
+
+
+2. GLOBAL VARS: it will work outside of a job
+Dashboard -- > Manage Jenkins -- > System -- > Environment vars -- > add 
+
+b. JENKINS ENVIRONMENT VARS: it can be defined by user
+========================================================================
 CUSTOM WORKSPACE: it will gives the output on our desired location.
 
 mkdir -p swiggy/jenkinsbuilds/
@@ -991,126 +1005,6 @@ HISTORY:
    52  java -version
    53  update-alternatives --config java
    54  java -version
-===================================
-day-05: postbuild & master slave
-
-POST-BUILD ACTIONS: the actions which comes after build.
-
-1- always: it will execute all the time 
-
-success cause:
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                echo "hai all"
-            }
-        }
-    }
-    post {
-        always {
-            echo "hello world"
-        }
-    }
-}
-
-failuer cause:
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                ech "hai all"
-            }
-        }
-    }
-    post {
-        always {
-            echo "hello world"
-        }
-    }
-}
-
-
-2-success: it will trigger if the build is success
-
-success cause:
-
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                echo "hai all"
-            }
-        }
-    }
-    post {
-        success {
-            echo "hello world"
-        }
-    }
-}
-
-failuer cause:
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                ech "hai all"
-            }
-        }
-    }
-    post {
-        always {
-            echo "hello world"
-        }
-    }
-}
-
-
-3-failuer: 
-
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                echo "hai all"
-            }
-        }
-    }
-    post {
-        failure {
-            echo "hello world"
-        }
-    }
-}
-
-pipeline {
-    agent any
-    
-    stages {
-        stage("one") {
-            steps {
-                ech "hai all"
-            }
-        }
-    }
-    post {
-        failure {
-            echo "hello world"
-        }
-    }
-}
-
 -------------------------------------------------------------------------------------------------------------------------------------
 
 INPUT PARAMETER:
@@ -1145,25 +1039,6 @@ pipeline {
         }
     }
 }
-
-=================================================================================================================
-
-27-06-2023:
-
-RBAC	: ROLE BASED ACCESS CONTROL
-To restrict the jenkins Control for the users.
-authentication - who can signin
-authorization - who can work
-
-user-1: EXP (rajesh)           user-2:FRESHER (raju)	USER-3: FRESHER
-
-1. USERS: Dashboard -- > Manage Jenkins -- > security -- > Users (crearte 2 users)
-2. PLUGIN: Dashboard -- > Manage Jenkins -- > Plugins -- > Available plugins -- > Role-based Authorization Strategy  -- > install -- > goback to top
-3. Dashboard  -- > Manage Jenkins -- > Security -- > Authorization: Role-Based strategy
-4. ROLES : Dashboard  -- > Manage Jenkins -- > Security -- > Manage and Assign Roles -- >
-   create Fresher & Experience roles and give permissions(EXP: ADMIN, FRE: BUILD AND READ)
-5. ASSIGN ROLES: user-1: EXP           user-2:FRESHER
-
 ==============================================================================
 LIST VIEW: USED TO SEPERATE/FILTER THE JOBS.
 MY VIEW: USED TO SHOW THE JOBS WHICH I HAVE PERMISSIONS.
