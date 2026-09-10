@@ -1150,3 +1150,13 @@ pipeline {
 LIST VIEW: USED TO SEPERATE/FILTER THE JOBS.
 MY VIEW: USED TO SHOW THE JOBS WHICH I HAVE PERMISSIONS.
 BUILD PIPELINE VIEW: To show the process of linked jobs -- > PLUGINS -- > AVAILABLE -- > Build Pipeline -- > INSTALL
+
+
+=================================================================================
+Jenkins Freestyle job options:
+
+Build after other projects are built:
+pipeline1->pipeline2->pipeline3->....
+this pipeline execution depends on the previous pipeline that means upstraem and down stream
+
+=======================================================================================
