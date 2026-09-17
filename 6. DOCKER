@@ -49,6 +49,8 @@ docker ps: to list the running containers
 docker image inspect image-name:tag : to check which port that image is exposing
 docker build -t image-name path-to-Dockerfile: build an image from Dockerfile
 docker run -itd --name con1 -p 1111:80 img1: to create a container con1 from img1 in a interactive terminal with detached(background app running) port 1111 and image exposed to port 80
+docker exec -it container-name path-to-run : login into the container
+
 
 OS LEVEL OF VIRTUALIZATION:
 cat /etc/os-release
