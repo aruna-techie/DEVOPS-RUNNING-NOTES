@@ -45,6 +45,7 @@ docker pull ubuntu: to get ubuntu image
 docker run ubuntu: to create a container
 docker run -it --name cont2 ubuntu: it will create cont2 with interactive mode
 docker ps -a: to show list of containers
+docker image inspect image-name:tag : to check which port that image is exposing
 
 OS LEVEL OF VIRTUALIZATION:
 cat /etc/os-release
@@ -99,15 +100,18 @@ command: docker build -t image_name path_of_Dockerfile
 ex: docker build -t img1 .
 
 FROM: base image
+MAINTAINER : who is creating the image
+COPY: copies the local file to container
+ADD: copies the internet file to container (or) extract the files
+LABEL : to attach label to conatiner or it tells description about image
 RUN: executes Linux commands (image creation)
 CMD: executes Linux commands (container creation)
 ENTRYPOINT: It will override the command.
-COPY: copies the local file to container
-ADD: copies the internet file to container (or) extract the files
 WORKDIR: Opens the required folder 
 ENV: To pass the env variables (inside container)
 ARGS: To pass the env variables (outside container)
-labels: to attach label to conatiner
+EXPOSE		: used to give port number or like on which port number that image is allowing
+VOLUME		: used to create volume for conatiner
 
 
 EXAMPLE-1:
