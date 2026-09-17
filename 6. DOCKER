@@ -44,8 +44,10 @@ docker images: to show a list of images
 docker pull ubuntu: to get ubuntu image
 docker run ubuntu: to create a container
 docker run -it --name cont2 ubuntu: it will create cont2 with interactive mode
-docker ps -a: to show list of containers
+docker ps -a: to show list of containers including stopped containers
+docker ps: to list the running containers
 docker image inspect image-name:tag : to check which port that image is exposing
+docker build -t image-name path-to-Dockerfile: build an image from Dockerfile
 
 OS LEVEL OF VIRTUALIZATION:
 cat /etc/os-release
