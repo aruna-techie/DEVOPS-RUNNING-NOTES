@@ -96,6 +96,7 @@ in Dockerfile D must be capital.
 
 BUILD -- > To run the docker file
 command: docker build -t image_name path_of_Dockerfile
+ex: docker build -t img1 .
 
 FROM: base image
 RUN: executes Linux commands (image creation)
