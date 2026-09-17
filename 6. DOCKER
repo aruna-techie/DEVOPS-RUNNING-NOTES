@@ -14,11 +14,30 @@ os level of virtualization.
 virtualization is Hardware level
 containerization is OS level
 
-INSTALL:
-yum install docker -y
-service start docker
-service status docker
+DOCKER:
+its a free and open-source platform.
+docker will create containers.
+we can create, run, and deploy our apps on containers.
+its platform independent (native runs on Linux Distribution).
+containers will use host resources (cpu, mem, ram, os)
+docker will perform os level of VIRTUALIZATION called containerization.
 
+year: 2013
+developed by: Solomen Hykes and Sebastian Phal
+language: go lang
+
+
+ARCHITECTURE:
+DOCKER CLIENT: its a way of interacting with docker (command -- > op)
+DOCKER DAEMON: it manage all the docker components (images, cont, volumes, nlw)
+DOCKER HOST: where we installed docker
+DOCKER REGISTRY: it manages all the  docker images on internet.
+
+
+INSTALLATION:
+yum install docker -y
+systemctl start docker
+systemctl status docker
 
 COMMANDS:
 docker images: to show a list of images
