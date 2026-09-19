@@ -192,51 +192,57 @@ useradd sonar
 chown sonar:sonar sonarqube-8.9.6.50800 -R
 chmod 777 sonarqube-8.9.6.50800 -R
 su - sonar
-
-#run this on server manually
-#sh /opt/sonarqube-8.9.6.50800/bin/linux/sonar.sh start
+cd /opt/sonarqube-8.9.6.50800/bin/linux-x86-64
+./sonar.sh start
 #echo "user=admin & password=admin"
+note: by default username and password for sonar is admin
 
-after login -- > add project -- > manual -- > project key -- > netlfix -- > setup -- > token -- > netflix -- > generate -- > continue -- > maven 
+after login -- > add project -- > manual -- > project key -- > give any netlfix -- > setup -- > token-name -- > any name netflix -- > generate -- >copy token -> continue -- > maven->
+here you get script copy paste the code on pipeline:
+In side jenkins=>manage jenkins->syatem->sonar servers->add sonar-> select secreat teext->credentials username :admin and password that token generated.
 
-copy paste the code on pipeline:
+for Quality gates, inside sonar, project settings add webhook-> jenkinsurl:8080/sonarqube-webhook/
+
 
 pipeline {
-    agent any 
-    
-    stages{
-        stage('checkout') {
-            steps {
-                git 'https://github.com/devopsbyraham/jenkins-java-project.git'
-            }
-        }
-        stage('build') {
-            steps {
-                sh 'mvn compile'
-            }
-        }
-        stage('test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('code quality') {
-            steps {
-                sh '''
-                mvn sonar:sonar \
-                  -Dsonar.projectKey=netflix \
-                  -Dsonar.host.url=http://13.38.32.159:9000 \
-                  -Dsonar.login=3f017506d83cd334fba02ecf9db706c429ab5d38
-                '''
-            }
-        }
-        stage('artifact') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
+    agent any
+    tools {
+        maven "mymaven"
     }
+
+    stages {
+        stage('Code') {
+            steps {
+                git 'https://github.com/aruna-techie/one.git'
+            }
+        }
+        stage("Build") {
+            steps {
+                sh "mvn clean install"
+            }
+            
+        }
+        stage("CQA"){
+            steps {
+                withSonarQubeEnv('mysonar') { //name give while integrate with jenkins
+                  sh '''
+                  mvn clean verify\
+                  org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+                 -Dsonar.projectKey=Mysonar \
+                 -Dsonar.host.url=http://16.4.26.107:9000 \
+                 -Dsonar.login=657d37a5451c680b7c51717a7e22d6fe0b0bbadf
+                 '''
+                }
+            }
+        }
+        stage("QualityGates") {
+            steps {
+                waitForQualityGate abortPipeline: true, credentialsId: 'SonarCredentials'
+            }
+        }
+   }
 }
+
 
 ====================================================================================================
 
