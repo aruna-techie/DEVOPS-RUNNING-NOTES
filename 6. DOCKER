@@ -60,6 +60,9 @@ LABEL this is for hosting website
 ADD index.html /usr/share/nginx/html
 
 3.jenkins pipeline: 
+by default pipeline doesn't allow docker for this you have to give permissions
+usermod -aG docker jenkins (or) chmod 777 /var/run/docker.sock 
+execute above command in ci server
 
 pipeline {
     agent any
