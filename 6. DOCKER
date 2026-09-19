@@ -51,6 +51,39 @@ docker build -t image-name path-to-Dockerfile: build an image from Dockerfile
 docker run -itd --name con1 -p 1111:80 img1: to create a container con1 from img1 in a interactive terminal with detached(background app running) port 1111 and image exposed to port 80
 docker exec -it container-name path-to-run : login into the container
 
+===========================================================================================
+Hosting an Application using Jenkins pipeline and Docker
+1. Git Repo contains index.html file and Docker file
+2. Dockerfile as:
+FROM nginx
+LABEL this is for hosting website
+ADD index.html /usr/share/nginx/html
+
+3.jenkins pipeline: 
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/aruna-techie/MyProject.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "docker build -t img2 ."
+            }
+        }
+        stage('Container') {
+            steps {
+                sh "docker run -d --name mycontainer2 -p 1115:80 img2"
+            }
+        }
+    }
+}
+4. now we can access that website using public-ip of ec2 instance:port(1115)
+=======================================================================================
 
 OS LEVEL OF VIRTUALIZATION:
 cat /etc/os-release
