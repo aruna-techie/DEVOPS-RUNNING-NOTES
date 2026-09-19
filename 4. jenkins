@@ -167,6 +167,25 @@ job->configure->build steps-> add -> nexusArtifactUploader(
 save and click on build.
 note: these groupid,artifactid,version details mentioned in pom.xml file
 repository should be repository thst you crested in nexus 
+
+TAking the artifacts by Reading the pom.xml:
+1.install pipeline utilities plugin
+2. write the code in pipeline as :
+
+stage("Artifacts") {
+            steps {
+                script {
+                    def pom = readMavenPom file: 'pom.xml'
+                    nexusArtifactUploader(artifacts: [[artifactId: pom.artifactId, classifier: '', file: "target/myweb.war", type: 'war']], credentialsId: 'NexusCredentials', groupId: pom.groupId, nexusUrl: '35.154.202.63:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'myrepo', version: pom.version)
+                }
+
+            }
+}
+3. pipeline will fails 3 times beacause it will asks permissions to fetch artifact,version, etc so you have approve it
+manage jenkins->script waiting->click-> approve
+4. then pipeline will automatically read the dat afrom pom.xml
+
+
 ==============================================================================
 
 INTEGRATION OF SONAR WITH JENKINS:
