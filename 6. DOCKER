@@ -76,6 +76,7 @@ ENV: To pass the env variables (inside container)
 ARGS: To pass the env variables (outside container)
 EXPOSE		: used to give port number or like on which port number that image is allowing
 VOLUME		: used to create volume for conatiner
+USER : from which user commands to be executed.
 
 
 EXAMPLE-1:
