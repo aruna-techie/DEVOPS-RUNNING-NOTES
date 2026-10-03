@@ -567,6 +567,99 @@ HISTORY:
    71  cat docker-compose.yml
 
 ================================================================================
+COMPLETE DOCKER COMPOSE file which included 
+1.containers
+2.images
+3.ports
+4.volumes
+5.network
+6.environmrnt variables
+7.environment files
+8.resources
+9.depends_on
+10.restart policies.
+==
+---
+services:
+  frontend:
+    container_name: cont1
+    image: shaikmustafa/dm
+    ports:
+      - "1111:80"
+    networks:
+      - network1
+    volumes:
+      - volume1:/mustafa/
+    env_file:
+      - dev.env
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 100M
+        limits:
+          cpus: "1.0"
+          memory: 200M
+
+  backend:
+    container_name: cont2
+    image: shaikmustafa/cycle
+    ports:
+      - "1112:80"
+    networks:
+      - network2
+    volumes:
+      - volume2:/devops/
+    environment:
+      APP_ENV: prod
+      APP_PORT: 3000
+      DB_PORT: 3306
+      DB_HOST: mysql
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 100M
+        limits:
+          cpus: "1.0"
+          memory: 200M
+    depends_on:
+      - database
+
+
+  database:
+    container_name: cont3
+    image: shaikmustafa/mygame
+    ports:
+      - "1113:80"
+    networks:
+      - network3
+    volumes:
+      - volume3:/devsecops/
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 100M
+        limits:
+          cpus: "1.0"
+          memory: 200M
+
+
+
+networks:
+  network1:
+    driver: bridge
+  network2:
+    driver: bridge
+  network3:
+    driver: bridge
+
+volumes:
+  volume1:
+  volume2:
+  volume3:
+====================================================================================================
 17-07-2023: Docker swarm, docker hub
 
   1  docker swarm init --advertise-addr 172.31.27.75
