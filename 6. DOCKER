@@ -441,6 +441,35 @@ docker-compose version
 stop vs kill:
 it will wait a few sec to stop the running process
 it won't wait to stop the process 
+============================================================
+sample YAML files:
+
+services:
+  front-end:
+    container_name: frontend-app
+    image: aruna1105/devops:food
+    ports:
+      - "1111:80"
+  back-end:
+    container_name: backend-app
+    image: aruna1105/devops:beauty-products
+    ports:
+      - "1112:80"
+
+
+================================
+services:
+  front-end:
+    container_name: frontend-app
+    build: ./movie
+    ports:
+      - "1111:80"
+  back-end:
+    container_name: backend-app
+    image: aruna1105/devops:beauty-products
+    ports:
+      - "1112:80"
+===========================================================
 
 WORKING:
 
