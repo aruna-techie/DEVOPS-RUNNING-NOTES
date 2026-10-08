@@ -1322,3 +1322,12 @@ pipeline {
 
 
 
+COMMANLY USED PLUGINS IN JENKINS:
+1.Sonarqube scanner
+2.Docker pipeline
+3.Nexus artifact uplaoder
+4.Deploy to container
+5.pipeline stage view
+
+
+
