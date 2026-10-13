@@ -82,6 +82,17 @@ HISTORY:
    26  cat pod.yml
    27  history
 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-2
+spec:
+ containers:
+   - name: nginx
+     image: nginx:latest
+     ports:
+       - containerPort: 80
+
 
 ========================================================
 
