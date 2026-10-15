@@ -265,7 +265,12 @@ USER -- > SECURTITY CREDENTIALS -- > CREATE ACCESS KEYS -- > CLI -- > CHECKBOX -
 aws configure
 
 SETP-2: INSTALL KUBECTL AND KOPS
+Install KOPS: updated
 
+curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+chmod +x kops
+install -o root -g root -m 0755 kops /usr/local/bin/kops
+============================
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 wget https://github.com/kubernetes/kops/releases/download/v1.25.0/kops-linux-amd64
 chmod +x kops-linux-amd64 kubectl
