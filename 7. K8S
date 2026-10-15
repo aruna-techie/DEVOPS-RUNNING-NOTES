@@ -1,4 +1,5 @@
 DAY-01: 
+=======
 
 K8S: K8S is a orchestration tool that helps to automate the deployments.
 DOCKER SWARM:
@@ -226,6 +227,9 @@ spec:
 
 
 ========================================================
+Day-2:
+=====
+
 KOPS:
 INFRASTRUCTURE: Resources used to run our application on cloud.
 EX: Ec2, VPC, ALB, -------------
@@ -299,6 +303,51 @@ kubectl describe node node_id
 kops delete cluster --name rahams.k8s.local --yes
 
 =====================================================================================
+Day-3: (services)
+=====
+we created pod, inside pod we have container, inside the container we have application.
+we cant access the application without expose the pod
+For the POd expose we use Service in Kubernates.
+Services are 4 types:
+1.ClusterIp
+2.NodePort
+3.LoadBalancer
+4.ExternalName
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DAY-03: 24-07-2023: RS, DEPLOYMENT
 
